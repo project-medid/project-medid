@@ -4,9 +4,7 @@ This library allows python applications to deidentify WSI
 
 Installing
 ============
-
-
-pip install pywsidi
+FUTURE: pip install pywsidi
 
 Usage
 =====
