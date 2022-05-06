@@ -1,3 +1,16 @@
+# Project MEDID (MEdical Data De-IDentification) Consortium
+
+## Purpose
+
+A consortium of academic, clinical and industry partners for the development of open source de-identification tooling to better enable the democratization of healthcare data.
+
+## Goals
+
+* Create SOTA de-id tools across modalities (NLP, radiology, diagnostic & surgical video, pathology) in a Python 3.10.x framework - the de facto language of machine learning.
+* Create synthetic PHI datasets to serve as benchmarks for de-id tooling performance.
+* Make data released by tools easy to access & use
+
+
 # synthetic_phi
 
 Tool(s) to create DICOM datasets with synthetic PHI from previously de-identified DICOM data. 
