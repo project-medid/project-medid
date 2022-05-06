@@ -2,7 +2,7 @@
 
 ## Purpose
 
-A consortium of academic, clinical and industry partners for the development of open source de-identification tooling to better enable the democratization of healthcare data.
+A consortium of academic, clinical and industry partners for the development of open source healthcare imaging de-identification tooling to better enable the democratization of data.
 
 ## Goals
 
