@@ -1,16 +1,18 @@
-### Hi there 👋
+# synthetic_phi
 
-<!--
-**project-medid/project-medid** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+Tool(s) to create DICOM datasets with synthetic PHI from previously de-identified DICOM data. 
 
-Here are some ideas to get you started:
+To install the requirements
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+	pip install -r requirements.txt
+
+To use the tool
+
+	python generate_synth_phi.py -i input_dir -o output_dir -m num_synth_dicoms
+
+
+# License
+
+This tool is under the MIT license.
+
+
