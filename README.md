@@ -11,6 +11,14 @@ A consortium of academic, clinical and industry partners for the development of 
 * Make data released by tools easy to access & use
 
 
+# De-Identification Tools
+
+Descriptions of de-id tools to go here
+
+# Benchmarking
+
+Leaderboards for benchmark datasets per modality to go here.
+
 # synthetic_phi
 
 Tool(s) to create DICOM datasets with synthetic PHI from previously de-identified DICOM data. 
