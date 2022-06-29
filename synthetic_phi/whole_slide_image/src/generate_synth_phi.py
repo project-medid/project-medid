@@ -3,8 +3,8 @@ import os
 from os import listdir
 from os.path import isfile, join
 
-from pywsidi.isyntax import deident_isyntax_file
-from pywsidi.svs import deident_svs_file
+from isyntax import deident_isyntax_file
+from svs import deident_svs_file
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='WSI Slide Deidentifier')
