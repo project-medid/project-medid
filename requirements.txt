@@ -5,3 +5,4 @@ pydicom
 numpy
 Pillow
 lxml
+tifffile
