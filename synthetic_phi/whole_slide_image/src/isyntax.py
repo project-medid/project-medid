@@ -8,7 +8,8 @@ from lxml import etree as ET
 
 
 def generate_image(x, y, image_text1=None, image_text2=None):
-    img = Image.new('RGB', (x, y), color=(73, 109, 137))
+    DEFAULT_BACKGROUND_BLUE = (73, 109, 137)
+    img = Image.new('RGB', (x, y), color=DEFAULT_BACKGROUND_BLUE)
 
     d = ImageDraw.Draw(img)
     d.text((100, 100), "REMOVED DATA 1", fill=(255, 255, 0))
