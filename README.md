@@ -36,7 +36,7 @@ To use the tool
 
 # whole slide image synthetic_phi
 
-This library allows python applications to deidentify WSI
+This library allows python applications to deidentify WSI (Whole Slide Image).
 
 * iSyntax: deident_isyntax_file(ident_file_path, deident_file_path)
 * SVS: deident_svs_file(ident_file_path, deident_file_path)

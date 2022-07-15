@@ -1,10 +1,11 @@
+import base64
+import io
 import os
 import traceback
 
-from lxml import etree as ET
-import base64
-import io
 from PIL import Image, ImageDraw
+from lxml import etree as ET
+
 
 def generate_image(x, y, image_text1=None, image_text2=None):
     img = Image.new('RGB', (x, y), color=(73, 109, 137))
@@ -21,8 +22,8 @@ def generate_image(x, y, image_text1=None, image_text2=None):
 
     return base64_string
 
-def base64Split(a_string):
 
+def base_64_split(a_string):
     split_strings = []
     n = 60
     for index in range(0, len(a_string), n):
@@ -34,7 +35,8 @@ def base64Split(a_string):
 
     return payload[:-1]
 
-def parseXMLheader(header_data, image_text1=None, image_text2=None):
+
+def parse_xml_header(header_data, image_text1=None, image_text2=None):
     # create element tree object
     root = ET.fromstring(header_data)
 
@@ -42,7 +44,7 @@ def parseXMLheader(header_data, image_text1=None, image_text2=None):
 
         if data_object.attrib['ObjectType'] == 'DPUfsImport':
             for child in data_object:
-                if (child.attrib['Name'] == 'PIM_DP_UFS_BARCODE'):
+                if child.attrib['Name'] == 'PIM_DP_UFS_BARCODE':
                     original_barcode = base64.b64decode(child.text).decode('utf-8')
                     new_barcode = ''
                     for n in range(len(original_barcode)):
@@ -50,7 +52,7 @@ def parseXMLheader(header_data, image_text1=None, image_text2=None):
 
                     child.text = base64.b64encode(new_barcode.encode('utf-8'))
 
-                if (child.attrib['Name'] == 'DICOM_DEVICE_SERIAL_NUMBER'):
+                if child.attrib['Name'] == 'DICOM_DEVICE_SERIAL_NUMBER':
                     original_sn = child.text
                     new_sn = ''
                     for n in range(len(original_sn)):
@@ -59,12 +61,12 @@ def parseXMLheader(header_data, image_text1=None, image_text2=None):
                     child.text = new_sn
 
         if data_object.attrib['ObjectType'] == 'DPScannedImage':
-            #print('data_object attrib ' + str(data_object.attrib))
+            # print('data_object attrib ' + str(data_object.attrib))
             isLabel = False
             isMacro = False
 
             for child in data_object:
-                if (child.attrib['Name'] == 'PIM_DP_IMAGE_TYPE'):
+                if child.attrib['Name'] == 'PIM_DP_IMAGE_TYPE':
                     if child.text == 'WSI':
                         isLabel = False
                         isMacro = False
@@ -75,7 +77,7 @@ def parseXMLheader(header_data, image_text1=None, image_text2=None):
                         isLabel = False
                         isMacro = True
 
-                if(isLabel and (child.attrib['Name'] == 'PIM_DP_IMAGE_DATA')):
+                if isLabel and (child.attrib['Name'] == 'PIM_DP_IMAGE_DATA'):
                     label_image = base64.b64decode(child.text)
                     base64_bytes = base64.b64encode(label_image)
                     base64_string = base64_bytes.decode("utf-8")
@@ -84,9 +86,9 @@ def parseXMLheader(header_data, image_text1=None, image_text2=None):
                     for n in range((len(base64_string) - len(new_image))):
                         new_image += '='
 
-                    child.text = base64Split(new_image)
+                    child.text = base_64_split(new_image)
 
-                if(isMacro and (child.attrib['Name'] == 'PIM_DP_IMAGE_DATA')):
+                if isMacro and (child.attrib['Name'] == 'PIM_DP_IMAGE_DATA'):
                     macro_image = base64.b64decode(child.text)
 
                     base64_bytes = base64.b64encode(macro_image)
@@ -96,7 +98,7 @@ def parseXMLheader(header_data, image_text1=None, image_text2=None):
                     for n in range((len(base64_string) - len(new_image))):
                         new_image += '='
 
-                    child.text = base64Split(new_image)
+                    child.text = base_64_split(new_image)
 
     xml_declaration = '<?xml version="1.0" encoding="UTF-8"?>\n'
     search_string = 'PMSVR="IString"/><Attribute Name="PIIM_DP_SCANNER_CALIBRATION_STATUS"'
@@ -106,8 +108,8 @@ def parseXMLheader(header_data, image_text1=None, image_text2=None):
     output = output.replace(search_string, replace_string)
     return output.encode('utf-8')
 
-def getisyntaxheader(file_path):
 
+def get_isyntax_header(file_path):
     with open(file_path, 'rb') as f:
         s = f.read()
     header_location = s.find(b'\x0D\x0A\x04')
@@ -116,6 +118,7 @@ def getisyntaxheader(file_path):
         header_data = f.read(header_location)
 
     return header_location, header_data
+
 
 def deident_isyntax_file(original_file_path, deident_file_path):
     try:
@@ -131,10 +134,10 @@ def deident_isyntax_file(original_file_path, deident_file_path):
         The location of the header size should be identified and adjusted to prevent padding.  
         '''
 
-        #Determine the header location an extract the header XML
-        header_location, header_xml = getisyntaxheader(original_file_path)
+        # Determine the header location an extract the header XML
+        header_location, header_xml = get_isyntax_header(original_file_path)
 
-        #Determine the image data location
+        # Determine the image data location
         data_location = os.path.getsize(original_file_path) - header_location
 
         '''
@@ -146,9 +149,9 @@ def deident_isyntax_file(original_file_path, deident_file_path):
         Replacing: LABELIMAGE #Possible case ids and names on slide label
         Replacing: MACROIMAGE #Possible case ids and names on slide label
         '''
-        header = parseXMLheader(header_xml)
+        header = parse_xml_header(header_xml)
 
-        #Create a new file with a deidentified header and original tile data
+        # Create a new file with a deidentified header and original tile data
         with open(deident_file_path, "wb") as newfile, open(original_file_path, "rb") as original:
             newfile.write(header)
             newfile.write(original.read()[-data_location:])
@@ -156,4 +159,3 @@ def deident_isyntax_file(original_file_path, deident_file_path):
     except:
         traceback.print_exc()
         return False
-
