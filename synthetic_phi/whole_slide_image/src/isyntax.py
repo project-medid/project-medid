@@ -9,11 +9,12 @@ from lxml import etree as ET
 
 def generate_image(x, y, image_text1=None, image_text2=None):
     DEFAULT_BACKGROUND_BLUE = (73, 109, 137)
+    COLOR_TEXT_YELLOW = (255, 255, 0)
     img = Image.new('RGB', (x, y), color=DEFAULT_BACKGROUND_BLUE)
 
     d = ImageDraw.Draw(img)
-    d.text((100, 100), "REMOVED DATA 1", fill=(255, 255, 0))
-    d.text((100, 130), "REMOVED DATA 2", fill=(255, 255, 0))
+    d.text((100, 100), "REMOVED DATA 1", fill=COLOR_TEXT_YELLOW)
+    d.text((100, 130), "REMOVED DATA 2", fill=COLOR_TEXT_YELLOW)
 
     with io.BytesIO() as output:
         img.save(output, format='JPEG')
