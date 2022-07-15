@@ -84,7 +84,7 @@ def parse_xml_header(header_data, image_text1=None, image_text2=None):
                     base64_bytes = base64.b64encode(label_image)
                     base64_string = base64_bytes.decode("utf-8")
 
-                    new_image = generate_image(796, 826, image_text1=None, image_text2=None)
+                    new_image = generate_image(796, 826, image_text1, image_text2)
                     for n in range((len(base64_string) - len(new_image))):
                         new_image += '='
 
@@ -96,7 +96,7 @@ def parse_xml_header(header_data, image_text1=None, image_text2=None):
                     base64_bytes = base64.b64encode(macro_image)
                     base64_string = base64_bytes.decode("utf-8")
 
-                    new_image = generate_image(1688, 826, image_text1=None, image_text2=None)
+                    new_image = generate_image(1688, 826, image_text1, image_text2)
                     for n in range((len(base64_string) - len(new_image))):
                         new_image += '='
 
