@@ -19,18 +19,33 @@ Descriptions of de-id tools to go here
 
 Leaderboards for benchmark datasets per modality to go here.
 
-# synthetic_phi
-
-Tool(s) to create DICOM datasets with synthetic PHI from previously de-identified DICOM data. 
+# Installation
 
 To install the requirements
 
 	pip install -r requirements.txt
 
+# ultrasound synthetic_phi
+
+Tool(s) to create DICOM datasets with synthetic PHI from previously de-identified DICOM data. 
+
 To use the tool
 
+    cd synthetic_phi/ultrasound/src
 	python generate_synth_phi.py -i input_dir -o output_dir -m num_synth_dicoms
 
+# whole slide image synthetic_phi
+
+This library allows python applications to deidentify WSI (Whole Slide Image).
+
+* iSyntax: deident_isyntax_file(ident_file_path, deident_file_path)
+* SVS: deident_svs_file(ident_file_path, deident_file_path)
+
+
+To use the tool
+
+    cd synthetic_phi/whole_slide_image/src
+    python3 generate_synth_phi.py --identified_slides_path='ident_dir' --deidentified_slides_path='deident_dir'
 
 # License
 

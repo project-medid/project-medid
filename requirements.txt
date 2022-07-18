@@ -3,3 +3,6 @@ pandas
 pillow
 pydicom
 numpy
+Pillow
+lxml
+tifffile
